@@ -32,6 +32,7 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
     );
   }
 ```
+![动画效果](https://github.com/ryansong/FlutterAnimation/raw/master/resource/1553845643685.gif)
 
 AnimationController 设置动画时长, 并控制播放, Animation 添加监听器来调用 setState 方法调用页面更新 build, 使用 Animation.value 的值来绘制帧.
 
