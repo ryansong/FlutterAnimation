@@ -41,7 +41,7 @@ Animation 是 Flutter 动画库中的核心类，它会插入指导动画生成�
 ## AnimationController
 AnimationController 是一个动画控制器, 它控制动画的播放状态, 如例子里面的: controller.forward() 就是控制动画"向前"播放. 所以构建 AnimationController 对象之后动画并没有立刻开始执行. 在默认情况下, AnimationController 会在给定的时间内线性地生成从 0.0 到 1.0 之间的数字. AnimationController 是一种特殊的 Animation 对象了, 它父类其实是一个 Animation<double>, 当硬件准备好需要一个新的帧的时候它就会产生一个新的值. 由于 AnimationController 派生自 Animation <double>，因此可以在需要 Animation 对象的任何地方使用它. 但是 AnimationController 还有其他的方法来控制动画的播放, 例如前面提到的 .forward() 方法启动动画. AnimationController 生成的数字(默认是从 0.0 到 1.0) 是和屏幕刷新有关, 前面也提到它会在硬件需要一个新帧的时候产生新值. 因为屏幕一般都是 60 帧/秒, 所以它也通常一秒内生成 60 个数字. 每个数字生成之后, 每个 Animation 对象都会调用绑定的简监听器对象.
 
-#Tween
+## Tween
 Tween 本身表示的就是一个 Animation 对象的取值范围, 只需要设置开始和结束的边界值(值也支持泛型). 它唯一的工作就是定义输入范围到输出范围的映射, 输入一般是 AnimationController 给出的值 0.0~1.0.  看下面的例子, 我们就能知道 animation 的 vlaue 是怎么样通过 AnimationController 生成的值映射到 Tween 定义的取值范围里面的.
 
 ```Dart
