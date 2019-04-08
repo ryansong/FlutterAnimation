@@ -3,9 +3,10 @@
 最近 Flutter 技术以其流畅的交互和跨平台的特性再次在移动开发领域带来震撼, 就此我对于 Flutter 的动画的实现做一下了解.
 
 
+一个简单的动画效果.
 ![这是一个简单的 Flutter Logo 动画](https://github.com/ryansong/FlutterAnimation/raw/master/resource/1553845643685.gif)
 
-主要代码如下
+代码如下
 ```Dart
 class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
   Animation<double> animation;
@@ -31,7 +32,17 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
         // ....
   }
 ```
-这就是一个再 2 秒内将 logo 图片从 0x0 变为 300x300 尺寸的动画.
+这部分源码表示的就是在 2000 毫秒内将 logo 图片从 0x0 绘制为 300x300 大小的动画. 类 _LogoAppState 是一个 statusfulWidget，可以调用 setStatus() 方法进行更新 weight. 我们可以看到和普通的 statusfulWidget 相比， 这个例子多了两个成员变量 Animation<double> animation 和 AnimationController controller, 这两个对象是动画能够运行的关键.  
+我们看到在 animation 变量的 addListener() 回调方法里面调用了 statusfulWidget 的重绘方法 setState() , 而在 widget 的 build() 方法里使用了 animation 对象的值作为 weight 的宽度和高度使用. 从这里我们能够推测出一个想法：animation 对象通过将监听器注册将 animation 需要更新的变动通知过监听器， 而监听器又调用 setStatus() 方法让 widget 去重新绘制， 而在绘制时，widget 又将 animation 的 value 值当作新绘制图形的参数. 通过这样的机制不断地重绘这个 weight 实现了动画的效果.
+
+## Animation<double>
+Animation 是 Flutter 动画库中的核心类，它本身呈现的就是指导动画生成的值(animation.value). Animation 对象是就是会在在一段时间内依次生成一个区间之间值的类, 它的输出可以是线性的、曲线的、一个步进函数或者任何其他可以设计的映射 比如：CurvedAnimation. 在Flutter中，Animation 对象本身和 UI 渲染没有任何关系， UI 会使用 animation.value 的值来确认如何生成对象， 这取决于 UI 自己.  Animation 是一个抽象类，它拥有其当前值和状态（完成或停止）。Animation<double> 是一个比较常用的Animation类, 也可以支持其它的类型，比如： Animation<Color> 或 Animation<Size>. 
+
+## AnimationController
+AnimationController 是一个动画控制器
+
+
+
 
 那么 Flutter 是怎么样让这个动画在规定时间不断地绘制的呢?
 
@@ -155,7 +166,7 @@ Tween 是用来表示变化范围的泛型对象, Animation 则是表示动画�
   _value = _simulation.x(elapsedInSeconds).clamp(lowerBound, upperBound);
 ```
 
-由于篇幅所限, 不能将 Flutter 的动画的完整的都介绍, 所以就先粗浅地介绍 Flutter 动画 demo 的源码吧.
+
 
 
 
