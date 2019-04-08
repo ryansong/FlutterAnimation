@@ -79,7 +79,7 @@ Tween 本身表示的就是一个 Animation 对象的取值范围, 只需要设�
   }
 ```
 
-
+## Flutter 的"时钟"
 那么 Flutter 是怎么样让这个动画在规定时间不断地绘制的呢?
 
 首先看 Widget 引入的 SingleTickerProviderStateMixin 类. SingleTickerProviderStateMixin 是以 with 关键字引入的, 这是 dart 语言的 mixin 特性, 可以理解成"继承", 所以 widget 相当于是继承了 SingleTickerProviderStateMixin. 所以在 AnimationController 对象的构造方法参数 vsync: this, 我们看到了这个类的使用. 从 "vsync" 参数名意为"垂直帧同步"可以看出, 这个是与绘制动画帧的"节奏器". 
