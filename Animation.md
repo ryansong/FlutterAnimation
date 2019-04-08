@@ -177,7 +177,8 @@ mixin AnimationWithParentMixin<T> {
 
 
 
-
+#总结
+通过对 Flutter 源码的分析, 我们看到了 Flutter 动画是以硬件屏幕刷新作为驱动,通过间隔时间获取到映射在取值范围的值, 最终生成插值动画来完成动画效果的.
 
 
 
